@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   
+    <script>
+
+        class Libraryy{
+            #books = [];
+             constructor(oldlib){
+                this.#books = new Map(oldlib);
+             }
+             HasBooks(book){
+                let i=false;
+                for(let bookin of this.#books) {
+                if(JSON.stringify(bookin)==JSON.stringify(book))
+                i=true;
+                }
+                return i;
+             }
+             get allBooks(){
+                for(let book of this.#books)
+                console.log(`Название книги - ${book[0].name}` + ','+`Имя автора-${book[1].avtor}`+','+`Год издания-${book[1].year}`+'\n');
+                return(this.#books);
+
+             }
+             addBook(book){
+                if(this.HasBooks(book))
+                throw("Такая книга есть");
+                else{this.#books.set(book[0],book[1]);}
+             }
+             removeBook(book){
+                let i=false;
+                   for(let key of this.#books.keys())
+                   if(JSON.stringify(book[0])==JSON.stringify(key)&&JSON.stringify(book[1])==JSON.stringify(this.#books.get(key))){//Здравствуйте.Если знаете как поймать ключ,без всякого колхоза,скажите пожалуйста )просто чтобы ключ поймать нужен цикл ,если это обьект,сложнее чем просто туда перменную поставить.
+                    this.#books.delete(key);
+                    i= true;
+                   }
+                   if(!i)
+                   throw("Такой книги нет");
+             }
+
+        }
+        let lb2 = [[{name:"kiki"},{avtor:"gg",year:2012}],[{name:"sisi"},{avtor:"vv",year:2024}]];
+        let lb1 = new Libraryy(lb2);
+        lb1.addBook([{name:"kiki"},{avtor:"uu",year:2012}]);
+        lb1.removeBook([{name:"kiki"},{avtor:"uu",year:2012}]);
+        console.log(lb1);
+        
+    </script>
+</body>
+</html>
